@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dsp_freeverb_gpl", "dsp_freeverb_gpl.vcproj", "{C9EEB9B6-BD1F-4880-AF0E-449A5777713D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{C9EEB9B6-BD1F-4880-AF0E-449A5777713D}.Debug.ActiveCfg = Debug|Win32
+		{C9EEB9B6-BD1F-4880-AF0E-449A5777713D}.Debug.Build.0 = Debug|Win32
+		{C9EEB9B6-BD1F-4880-AF0E-449A5777713D}.Release.ActiveCfg = Release|Win32
+		{C9EEB9B6-BD1F-4880-AF0E-449A5777713D}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

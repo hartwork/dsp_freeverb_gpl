@@ -1,0 +1,123 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Germany) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONFIG DIALOGEX 0, 0, 243, 189
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | 
+    DS_CENTERMOUSE | WS_POPUP | WS_VISIBLE | WS_CLIPSIBLINGS | 
+    WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "ON",IDC_ACTIVE,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,11,53,36,13
+    COMBOBOX        IDC_PRESETS,52,53,140,118,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "+",IDC_ADD,197,53,16,13
+    PUSHBUTTON      "-",IDC_SUB,217,53,16,13
+    LTEXT           " Room size",IDC_STATIC,11,75,50,12,SS_SUNKEN | NOT 
+                    WS_GROUP
+    CONTROL         "",IDC_SLIDER_SIZE,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,75,136,10
+    EDITTEXT        IDC_EDIT_SIZE,211,75,22,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           " Damp level",IDC_STATIC,11,91,50,12,SS_SUNKEN
+    CONTROL         "",IDC_SLIDER_DAMP,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,91,136,10
+    EDITTEXT        IDC_EDIT_DAMP,211,91,22,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           " Wet level",IDC_STATIC,11,107,50,12,SS_SUNKEN
+    CONTROL         "",IDC_SLIDER_WET,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,107,136,10
+    EDITTEXT        IDC_EDIT_WET,211,107,22,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           " Dry level",IDC_STATIC,11,123,50,12,SS_SUNKEN
+    CONTROL         "",IDC_SLIDER_DRY,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,123,136,10
+    EDITTEXT        IDC_EDIT_DRY,211,123,22,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           " Room width",IDC_STATIC,11,139,50,12,SS_SUNKEN
+    CONTROL         "",IDC_SLIDER_WIDTH,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,139,136,10
+    EDITTEXT        IDC_EDIT_WIDTH,211,138,22,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           " Volume",IDC_STATIC,11,155,50,12,SS_SUNKEN
+    CONTROL         "",IDC_SLIDER_VOL,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | TBS_FIXEDLENGTH | WS_TABSTOP,67,155,136,10
+    EDITTEXT        IDC_EDIT_VOL,211,155,22,12,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           " http://www.hartwork.org",IDC_STATIC,0,178,243,11,
+                    SS_SUNKEN | WS_DISABLED
+END
+
+#endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

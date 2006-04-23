@@ -30,7 +30,7 @@ using namespace std;
 #endif
 
 #define PLUGIN_TITLE   "GPL Freeverb"
-#define PLUGIN_VERSION "0.6"
+#define PLUGIN_VERSION "0.61"
 
 
 struct struct_full_preset
@@ -1011,8 +1011,14 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 
 void config_freeverb( struct winampDSPModule * this_mod )
 {
-	DialogBox( mod_freeverb.hDllInstance, MAKEINTRESOURCE( IDD_CONFIG ), NULL, WndprocConfig );
-	hConfig = NULL;
+	static bool bCheapLocked = false;
+	if( bCheapLocked ) return;
+	bCheapLocked = true;
+
+		DialogBox( mod_freeverb.hDllInstance, MAKEINTRESOURCE( IDD_CONFIG ), NULL, WndprocConfig );
+		hConfig = NULL;
+
+	bCheapLocked = false;
 }
 
 

@@ -30,7 +30,7 @@ using namespace std;
 #endif
 
 #define PLUGIN_TITLE   "GPL Freeverb"
-#define PLUGIN_VERSION "0.5"
+#define PLUGIN_VERSION "0.6"
 
 
 struct struct_full_preset
@@ -87,8 +87,8 @@ const float Preset_Space_Data[ 6 ]     = { 0.57f, 0.37f, 0.33f, 0.50f, 0.73f, 0.
 const char * const Preset_Little       = "A Little Bit";
 const float Preset_Little_Data[ 6 ]    = { 0.30f, 0.35f, 0.25f, 0.50f, 0.15f, 0.95f };
 
-const int CUSTOM_PRESET_IDENT = -1;
-int DEFAULT_PRESET_IDENT; // Filled later
+const int CUSTOM_PRESET_IDENT          = -1;
+int DEFAULT_PRESET_IDENT               = CUSTOM_PRESET_IDENT; // Updated later
 const float * const default_preset     = Preset_Diecast_Data;
 
 
@@ -134,15 +134,8 @@ void( revmodel:: * setter[ 5 ] )( float ) = {
 	&revmodel::setdry,
 	&revmodel::setwidth
 };
-/*
-float( revmodel:: * getter[ 5 ] )( void ) = {
-	&revmodel::getroomsize,
-	&revmodel::getdamp,
-	&revmodel::getwet,
-	&revmodel::getdry,
-	&revmodel::getwidth
-};
-*/
+
+
 
 LRESULT CALLBACK WndprocHeader( HWND hwnd, UINT message, WPARAM wp, LPARAM lp );
 void config_freeverb( struct winampDSPModule * this_mod );
@@ -173,7 +166,7 @@ winampDSPModule mod_freeverb =
 
 
 
-// Remove [" ]+ from preset title
+// Remove [" ]+ from preset title (begin and end)
 bool TrimTitle( char * const szTitle )
 {
 	if( !szTitle ) return false;
@@ -192,6 +185,7 @@ bool TrimTitle( char * const szTitle )
 
 
 
+// Lookup preset at map
 float * GetPresetData( const int i )
 {
 	map <int, full_preset *>::iterator iter = preset_map.find( i );
@@ -267,30 +261,42 @@ int init_freeverb( struct winampDSPModule * this_mod )
 			// Add built-in presets
 			full_preset * preset;
 
-			preset = new full_preset;
-			preset->szTitle = new char[ strlen( Preset_Metallic ) + 1 ];
-			strcpy( preset->szTitle, Preset_Metallic );
-			memcpy( preset->data, Preset_Metallic_Data, sizeof( float ) * 6 );
-			preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			preset = new full_preset; // N-001
+			preset->szTitle = new char[ strlen( Preset_Metallic ) + 1 ]; // N-002
+			if( preset && preset->szTitle ) // C-001-002
+			{
+				strcpy( preset->szTitle, Preset_Metallic );
+				memcpy( preset->data, Preset_Metallic_Data, sizeof( float ) * 6 );
+				preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			}
 
-			preset = new full_preset;
-			preset->szTitle = new char[ strlen( Preset_Diecast ) + 1 ];
-			strcpy( preset->szTitle, Preset_Diecast );
-			memcpy( preset->data, Preset_Diecast_Data, sizeof( float ) * 6 );
-				DEFAULT_PRESET_IDENT = iNextPresetId++;
-			preset_map.insert( pair<int, full_preset *>( DEFAULT_PRESET_IDENT, preset ) );
+			preset = new full_preset; // N-003
+			preset->szTitle = new char[ strlen( Preset_Diecast ) + 1 ]; // N-004
+			if( preset && preset->szTitle ) // C-003-004
+			{
+				strcpy( preset->szTitle, Preset_Diecast );
+				memcpy( preset->data, Preset_Diecast_Data, sizeof( float ) * 6 );
+					DEFAULT_PRESET_IDENT = iNextPresetId++;
+				preset_map.insert( pair<int, full_preset *>( DEFAULT_PRESET_IDENT, preset ) );
+			}
 
-			preset = new full_preset;
-			preset->szTitle = new char[ strlen( Preset_Space ) + 1 ];
-			strcpy( preset->szTitle, Preset_Space );
-			memcpy( preset->data, Preset_Space_Data, sizeof( float ) * 6 );
-			preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			preset = new full_preset; // N-005
+			preset->szTitle = new char[ strlen( Preset_Space ) + 1 ]; // N-006
+			if( preset && preset->szTitle ) // C-005-006
+			{
+				strcpy( preset->szTitle, Preset_Space );
+				memcpy( preset->data, Preset_Space_Data, sizeof( float ) * 6 );
+				preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			}
 
-			preset = new full_preset;
-			preset->szTitle = new char[ strlen( Preset_Little ) + 1 ];
-			strcpy( preset->szTitle, Preset_Little );
-			memcpy( preset->data, Preset_Little_Data, sizeof( float ) * 6 );
-			preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			preset = new full_preset; // N-007
+			preset->szTitle = new char[ strlen( Preset_Little ) + 1 ]; // N-008
+			if( preset && preset->szTitle ) // C-007-008
+			{
+				strcpy( preset->szTitle, Preset_Little );
+				memcpy( preset->data, Preset_Little_Data, sizeof( float ) * 6 );
+				preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
+			}
 		}
 		else
 		{
@@ -301,23 +307,19 @@ int init_freeverb( struct winampDSPModule * this_mod )
 			{
 				// Get preset title
 				sprintf( szKey, FORMAT_PRESET_TITLE_KEY, i );
-				char * szPresetTitle = new char[ 200 ];
+				char * szPresetTitle = new char[ 200 ]; // N-009
+				if( !szPresetTitle ) continue; // C-009
 				const int iCharsTitle = GetPrivateProfileString( SECTION_FREEVERB, szKey, "", szPresetTitle, 200, szWinampIni );
 				if( !iCharsTitle )
 				{
-					delete [] szPresetTitle;
+					delete [] szPresetTitle; // D-009
 					continue;
 				}
 
-				// Remove [" ]+ from title
-				char * beg = szPresetTitle;
-				char * end = szPresetTitle + strlen( szPresetTitle ) - 1;
-				while( ( beg < end ) && ( (*beg == '"' ) || ( *beg == ' ' ) ) ) beg++;
-				while( ( end > beg ) && ( (*end == '"' ) || ( *end == ' ' ) ) ) end--;
-				if( beg > szPresetTitle )
+				if( !TrimTitle( szPresetTitle ) )
 				{
-					memmove( szPresetTitle, beg, sizeof( char ) * ( end - beg + 1 ) );
-					*( end - ( beg - szPresetTitle ) + 1 ) = '\0';
+					delete [] szPresetTitle; // D-009
+					continue;
 				}
 
 				// Get preset data
@@ -325,12 +327,17 @@ int init_freeverb( struct winampDSPModule * this_mod )
 				const int iCharsData = GetPrivateProfileString( SECTION_FREEVERB, szKey, "", szPresetData, 200, szWinampIni );
 				if( !iCharsData )
 				{
-					delete [] szPresetTitle;
+					delete [] szPresetTitle; // D-009
 					continue;
 				}
 				
 				// Parse preset data
-				full_preset * preset = new full_preset;
+				full_preset * preset = new full_preset; // N-010
+				if( !preset ) // C-010
+				{
+					delete [] szPresetTitle; // D-009
+					continue;
+				}
 				preset->szTitle = szPresetTitle;
 				
 				const int iFields = sscanf( szPresetData, FORMAT_PRESET_DATA_READ,
@@ -339,8 +346,8 @@ int init_freeverb( struct winampDSPModule * this_mod )
 				
 				if( iFields != 6 )
 				{
-					delete [] szPresetTitle;
-					delete [] preset;
+					delete [] szPresetTitle; // D-009
+					delete preset; // D-010
 				}
 
 
@@ -450,7 +457,7 @@ void quit_freeverb( struct winampDSPModule * this_mod )
 
 	DeleteObject( hFont );
 
-	if( backup_samples ) delete [] backup_samples;
+	if( backup_samples ) delete [] backup_samples; // D-012
 
 
 	// Write config
@@ -473,10 +480,16 @@ void quit_freeverb( struct winampDSPModule * this_mod )
 	{
 		// Save preset title
 		sprintf( szKey, FORMAT_PRESET_TITLE_KEY, i );
-		char * szFinalTitle = new char[ strlen( iter->second->szTitle ) + 2 + 1 ];
+		char * szFinalTitle = new char[ strlen( iter->second->szTitle ) + 2 + 1 ]; // N-011
+		if( !szFinalTitle ) // C-011
+		{
+			delete [] iter->second->szTitle; // D-002-004-006-008-009-013
+			delete iter->second; // D-001-003-005-007-010-014
+			iter++;
+		}
 		sprintf( szFinalTitle, "\"%s\"", iter->second->szTitle );
 		WritePrivateProfileString( SECTION_FREEVERB, szKey, szFinalTitle, szWinampIni );
-		delete [] szFinalTitle;
+		delete [] szFinalTitle; // D-011
 
 		// Save preset data
 		sprintf( szKey, FORMAT_PRESET_DATA_KEY, i );
@@ -485,8 +498,8 @@ void quit_freeverb( struct winampDSPModule * this_mod )
 			data[ 2 ], data[ 3 ], data[ 4 ], data[ 5 ] );
 		WritePrivateProfileString( SECTION_FREEVERB, szKey, szPresetRecord, szWinampIni );
 		
-		delete [] iter->second->szTitle;
-		delete [] iter->second;
+		delete [] iter->second->szTitle; // D-002-004-006-008-009-013
+		delete iter->second; // D-001-003-005-007-010-014
 		
 		i++;
 		iter++;
@@ -505,8 +518,10 @@ int apply_freeverb( struct winampDSPModule * this_mod, short int * samples, int 
 		const int iBytesToCopy = numsamples * nch * bps / 8;
 		if( iBufferBytes < iBytesToCopy )
 		{
-			if( iBufferBytes != 0 ) delete [] backup_samples;
-			backup_samples = new short int[ iBytesToCopy ];
+			if( iBufferBytes != 0 ) delete [] backup_samples; // D-012
+			backup_samples = new short int[ iBytesToCopy ]; // N-012
+			if( !backup_samples ) return numsamples; // C-012
+			iBufferBytes = iBytesToCopy;
 		}
 		memcpy( backup_samples, samples, iBytesToCopy );
 	}
@@ -855,21 +870,22 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 						// Get title
 						const int iLen = GetWindowTextLength( hPresets );
 						if( !iLen ) break;
-						char * szPresetTitle = new char[ iLen + 1 ];
+						char * szPresetTitle = new char[ iLen + 1 ]; // N-013
+						if( !szPresetTitle ) break; // C-013
 						GetWindowText( hPresets, szPresetTitle, iLen + 1 );
 
 						// Trim title
 						const bool bOkay = TrimTitle( szPresetTitle );
 						if( !bOkay )
 						{
-							delete [] szPresetTitle;
+							delete [] szPresetTitle; // D-013
 							break;
 						}
 
 						// Deny "<Custom>" prefix
 						if( !strncmp( CUSTOM_PRESET_TITLE, szPresetTitle, strlen( CUSTOM_PRESET_TITLE ) ) )
 						{
-							delete [] szPresetTitle;
+							delete [] szPresetTitle; // D-013
 							break;
 						}
 
@@ -882,7 +898,12 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 							SendMessage( hPresets, CB_SETITEMDATA, iIndex, ( LPARAM )iNextPresetId );
 
 							// Add preset to map
-							full_preset * preset = new full_preset;
+							full_preset * preset = new full_preset; // N-014
+							if( !preset ) // C-014
+							{
+								delete [] szPresetTitle; // D-013
+								break;
+							}
 							preset->szTitle = szPresetTitle;
 							memcpy( preset->data, fValues, 6 * sizeof( float ) );
 							preset_map.insert( pair<int, full_preset *>( iNextPresetId++, preset ) );
@@ -905,7 +926,7 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 							// Select new preset (important if the title was trimmed)
 							SendMessage( hPresets, CB_SELECTSTRING, ( WPARAM )-1, ( LPARAM )szPresetTitle );
 
-							delete [] szPresetTitle;
+							delete [] szPresetTitle; // D-013
 						}
 					}
 					else
@@ -941,6 +962,8 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 					// Delete Preset
 					SendMessage( hPresets, CB_DELETESTRING, iIndex, 0 );
 					map<int, full_preset *>::iterator iter = preset_map.find( iPresetIdent );
+					delete [] iter->second->szTitle; // D-002-004-006-008-009-013
+					delete iter->second; // D-001-003-005-007-010-014
 					preset_map.erase( iter, iter );
 					
 					// Select <Custum>

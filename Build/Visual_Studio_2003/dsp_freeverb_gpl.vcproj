@@ -94,7 +94,8 @@
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="..\..\__copyrun.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

@@ -9,18 +9,16 @@
 #define IDC_SLIDER_DRY                  1004
 #define IDC_SLIDER_WIDTH                1005
 #define IDC_SLIDER_VOL                  1006
-#define IDC_EDIT_ROOM                   1007
-#define IDC_EDIT_SIZE                   1008
-#define IDC_EDIT_DAMP                   1009
-#define IDC_EDIT_WET                    1010
-#define IDC_EDIT_DRY                    1011
-#define IDC_EDIT_WIDTH                  1012
-#define IDC_EDIT_VOL                    1013
-#define IDC_ADD                         1015
-#define IDC_SUB                         1016
-#define IDC_COMBO2                      1017
-#define IDC_PRESETS                     1017
-#define IDC_ACTIVE                      1018
+#define IDC_EDIT_SIZE                   1007
+#define IDC_EDIT_DAMP                   1008
+#define IDC_EDIT_WET                    1009
+#define IDC_EDIT_DRY                    1010
+#define IDC_EDIT_WIDTH                  1011
+#define IDC_EDIT_VOL                    1012
+#define IDC_ADD                         1013
+#define IDC_SUB                         1014
+#define IDC_PRESETS                     1015
+#define IDC_ACTIVE                      1016
 
 // Next default values for new objects
 // 
@@ -28,7 +26,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        102
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_CONTROL_VALUE         1017
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

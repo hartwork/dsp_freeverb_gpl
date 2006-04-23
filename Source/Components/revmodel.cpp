@@ -96,8 +96,8 @@ void revmodel::processreplace(short int * inoutL, short int * inoutR, long numsa
 		}
 
 		// Calculate output REPLACING anything already there
-		const float fl = *inoutL + volume * ( outL*wet1 + outR*wet2 + *inoutL*dry );
-		const float fr = *inoutR + volume * ( outR*wet1 + outL*wet2 + *inoutR*dry );
+		const float fl = volume * ( outL*wet1 + outR*wet2 + *inoutL*dry );
+		const float fr = volume * ( outR*wet1 + outL*wet2 + *inoutR*dry );
 		
 		*inoutL = (  fl > 32767.0f )
 			? 32767

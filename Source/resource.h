@@ -3,6 +3,7 @@
 // Used by dsp_freeverb_gpl.rc
 //
 #define IDD_CONFIG                      9
+#define IDD_ADD                         102
 #define IDC_SLIDER_SIZE                 1001
 #define IDC_SLIDER_DAMP                 1002
 #define IDC_SLIDER_WET                  1003
@@ -17,16 +18,17 @@
 #define IDC_EDIT_VOL                    1012
 #define IDC_ADD                         1013
 #define IDC_SUB                         1014
-#define IDC_PRESETS                     1015
+#define IDC_CHOOSE_PRESET               1015
 #define IDC_ACTIVE                      1016
+#define IDC_EDIT_TITLE                  1017
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        102
+#define _APS_NEXT_RESOURCE_VALUE        103
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1017
+#define _APS_NEXT_CONTROL_VALUE         1018
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

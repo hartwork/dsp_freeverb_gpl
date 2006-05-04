@@ -30,7 +30,7 @@ using namespace std;
 #endif
 
 #define PLUGIN_TITLE   "GPL Freeverb"
-#define PLUGIN_VERSION "0.7"
+#define PLUGIN_VERSION "0.71"
 
 
 struct struct_full_preset
@@ -945,11 +945,15 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 			hEdits[ 4 ] = GetDlgItem( hwnd, IDC_EDIT_WIDTH );
 			hEdits[ 5 ] = GetDlgItem( hwnd, IDC_EDIT_VOL   );
 
-			hActive  = GetDlgItem( hwnd, IDC_ACTIVE );
-			hChoosePreset = GetDlgItem( hwnd, IDC_CHOOSE_PRESET );
+			hActive        = GetDlgItem( hwnd, IDC_ACTIVE );
+			hChoosePreset  = GetDlgItem( hwnd, IDC_CHOOSE_PRESET );
 
 			// Init power button
-			CheckDlgButton( hwnd, IDC_ACTIVE, ( bActive ? BST_CHECKED : BST_UNCHECKED ) );
+			if( bActive )
+			{
+				CheckDlgButton( hwnd, IDC_ACTIVE, BST_CHECKED );
+				SetWindowText( hActive, "ON" );
+			}
 
 			// Create header
 			RECT r;
@@ -1053,7 +1057,24 @@ BOOL CALLBACK WndprocConfig( HWND hwnd, UINT message, WPARAM wp, LPARAM lp )
 				break;
 
 			case IDC_ACTIVE:
-				bActive = ( IsDlgButtonChecked( hwnd, IDC_ACTIVE ) == BST_CHECKED );
+				switch( IsDlgButtonChecked( hwnd, IDC_ACTIVE ) )
+				{
+				case BST_CHECKED:
+					// Uncheck
+					CheckDlgButton( hwnd, IDC_ACTIVE, BST_UNCHECKED );
+					SetWindowText( hActive, "OFF" );
+					bActive = false;
+					break;
+
+				case BST_INDETERMINATE:
+				case BST_UNCHECKED:
+					// Uncheck
+					CheckDlgButton( hwnd, IDC_ACTIVE, BST_CHECKED );
+					SetWindowText( hActive, "ON" );
+					bActive = true;
+					break;
+
+				}
 				break;
 
 			case IDC_CHOOSE_PRESET:

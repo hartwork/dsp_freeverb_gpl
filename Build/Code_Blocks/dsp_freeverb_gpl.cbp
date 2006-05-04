@@ -22,6 +22,10 @@
 		<Linker>
 			<Add library="gdi32" />
 		</Linker>
+		<ExtraCommands>
+			<Add after="..\..\__copyrun.bat" />
+			<Mode after="always" />
+		</ExtraCommands>
 		<Unit filename="..\..\Source\Components\allpass.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="default" />
